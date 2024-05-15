@@ -1,8 +1,14 @@
 from tkinter import*
 
+w_width = 414
+h_height = 816
+
 window = Tk()
-window.geometry("300x300")
+window.geometry(str(w_width) + "x" + str(w_height))
 window.title("Dish Lister")
+
+main_frame = Frame(background="orange", width=w_width, height=h_height)
+main_frame.pack
 
 window.mainloop()
 
