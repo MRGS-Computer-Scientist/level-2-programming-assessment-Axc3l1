@@ -30,7 +30,7 @@ class App():
         self.home_button.place(x=15,y=7)
 
         self.exit_button = Button(self.bottom_frame, text="Exit", height=5, width=5, bg='white', command=exit)
-        self.exit_button.place(x=20,y=20)
+        self.exit_button.place(x=15,y=7)
 
         self.dirname = path.dirname(__file__)
         self.filename = path.join(self.dirname, 'images/')
