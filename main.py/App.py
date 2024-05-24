@@ -2,6 +2,7 @@ from tkinter import *
 #from app_settings import *
 from os import *
 
+print("fun")
 
 w_width = 414
 h_height = 816
