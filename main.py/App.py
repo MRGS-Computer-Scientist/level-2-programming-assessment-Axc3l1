@@ -9,30 +9,35 @@ h_height = 816
 bg_color = "#FFA500"
 
 class App():
+
     def __init__(self):
-        window = Tk()
-        window.geometry(str(w_width) + "x" + str(h_height))
-        window.title("Dish Lister")
 
-        top_frame = Frame(background='orange', width=w_width, height= 100)
-        top_frame.pack(side='top')
+        self.window = Tk()
+        self.window.geometry(str(w_width) + "x" + str(h_height))
+        self.window.title("Dish Lister")
 
-        main_frame = Frame(background=bg_color, width=w_width, height=h_height)
-        main_frame.pack
+        self.top_frame = Frame(background='orange', width=w_width, height= 100)
+        self.top_frame.pack(side='top')
 
-        bottom_frame = Frame(background='yellow', width=w_width, height=100)
-        bottom_frame.pack(side='bottom')
+        self.main_frame = Frame(background=bg_color, width=w_width, height=h_height)
+        self.main_frame.pack
 
-        home_button = Button(top_frame, text="Menu", height=5, width=5, bg='white')
-        home_button.place(x=15,y=7)
+        self.bottom_frame = Frame(background='yellow', width=w_width, height=100)
+        self.bottom_frame.pack(side='bottom')
 
-        exit_button = Button(bottom_frame, text="Exit", height=5, width=5, bg='white')
-        exit_button.place(x=100,y=100)
+        self.home_button = Button(self.top_frame, text="Menu", height=5, width=5, bg='white')
+        self.home_button.place(x=15,y=7)
 
-        dirname = path.dirname(__file__)
-        filename = path.join(dirname, 'images/')
+        self.exit_button = Button(self.bottom_frame, text="Exit", height=5, width=5, bg='white', command=exit)
+        self.exit_button.place(x=20,y=20)
 
-        print("the path is", filename)
+        self.dirname = path.dirname(__file__)
+        self.filename = path.join(self.dirname, 'images/')
 
-        window.mainloop()
+        print("the path is", self.filename)
 
+        self.window.mainloop()
+
+
+    def exit(self):
+        self.window.destroy()
