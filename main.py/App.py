@@ -13,7 +13,7 @@ bg_color = "#FFA500"
 
 class App():
 
-    currnet_frame = "Home"
+    current_frame = "Home"
     
 
     def __init__(self):
@@ -29,14 +29,20 @@ class App():
         self.top_frame = Frame(background='orange', width=w_width, height= 100)
         self.top_frame.pack(side='top')
     
-        #self.image = Image.open('imgs/dishlisterlogo.png')
-        #self.image = ImageTk.PhotoImage(self.image.resize((196, 196)))
+        im = Image.open('C:\\Users\\21162\\github-classroom\\MRGS-Computer-Scientist\\level-2-programming-assessment-Axc3l1\\main.py\\imgs\\logo.png')
+        ph = ImageTk.PhotoImage(im)
+
+        label = Label(self.top_frame, image=Image)
+        label.image=ph
 
         #self.image_label = Tk.Label(self, image=self.image)
         #self.image_label.pack()
 
         self.home_frame = Frame(background=bg_color, width=w_width, height=h_height)
         self.home_frame.pack
+
+        self.title_label = Label(self.home_frame, text="Home")
+        self.title_label.pack()
 
         self.bottom_frame = Frame(background=bg_color, width=w_width, height=100)
         self.bottom_frame.pack(side='bottom')
@@ -47,20 +53,20 @@ class App():
         self.exit_button = Button(self.bottom_frame, text="Exit", height=5, width=5, bg='white', command=self.exit)
         self.exit_button.place(x=15,y=7)
 
-        self.settings_button = Button(self.bottom_frame, text="Settings", height=5, width=5, bg='white', command= lambda: self.go_to_frame("Settings"))
-        self.settings_button.place(x=250,y=10)
+        self.settings_button = Button(self.top_frame, text="Settings", height=5, width=5, bg='white', command= lambda: self.go_to_frame("Settings"))
+        self.settings_button.place(x=350,y=7)
 
         ###settings frame####
-        self.settings_frame = Frame(background=bg_color, width=w_width, height=h_height)
-        self.settings_frame.pack
+        self.settings_frame = Frame(background='white', width=w_width, height=h_height)
+        self.settings_frame.pack()
 
         self.title_label = Label(self.settings_frame, text="Settings")
         self.title_label.pack()
 
-        self.settings_frame = Frame(background=bg_color, width=w_width, height=h_height)
+        
 
-        self.exit_button = Button(self.settings_frame, text="Exit", height=5, width=5, bg='white', command=self.exit)
-        self.exit_button.place(x=15,y=7)
+        #self.exit_button = Button(self.settings_frame, text="Exit", height=5, width=5, bg='white', command=self.exit)
+        #self.exit_button.place(x=15,y=7)
 
         self.dirname = path.dirname(__file__)
         self.filename = path.join(self.dirname, 'images/')
@@ -95,12 +101,12 @@ class App():
         elif self.current_frame == "Settings":
             self.settings_frame.pack_forget()
        
-        if next_frame == "Settings":
+        if next_frame == "Home":
                 self.settings_frame.pack()
-                self.current_frame = "Settings"
-        elif next_frame == "Home":
-                self.home_frame.pack()
                 self.current_frame = "Home"
+        elif next_frame == "Settings":
+                self.home_frame.pack()
+                self.current_frame = "Settings"
 
     #def settings(self):
         #self.settings_frame
