@@ -2,7 +2,7 @@ from tkinter import *
 #from app_settings import *
 from os import *
 
-from PIL import ImageTk, Image
+#from PIL import ImageTk, Image
 
 w_width = 414
 h_height = 816
@@ -29,14 +29,22 @@ class App():
         self.top_frame = Frame(background='orange', width=w_width, height= 100)
         self.top_frame.pack(side='top')
     
-        im = Image.open('C:\\Users\\21162\\github-classroom\\MRGS-Computer-Scientist\\level-2-programming-assessment-Axc3l1\\main.py\\imgs\\logo.png')
-        ph = ImageTk.PhotoImage(im)
+        #image = Image.open('C:\\Users\\21162\\github-classroom\\MRGS-Computer-Scientist\\level-2-programming-assessment-Axc3l1\\main.py\\imgs\\logo.png')
+        #image = ImageTk.PhotoImage(image)
 
-        label = Label(self.top_frame, image=Image)
-        label.image=ph
+        #image_label = Label(self.top_frame, image=Image)
+        #image_label.pack()
 
         #self.image_label = Tk.Label(self, image=self.image)
         #self.image_label.pack()
+
+        canvas = Canvas(height = 100, width = 100)
+        canvas.pack()
+
+        img = PhotoImage(file = r'[C:\\Users\\21162\\github-classroom\\MRGS-Computer-Scientist\\level-2-programming-assessment-Axc3l1\\main.py\\imgs\\logo.png]')
+        bg = Label(canvas, image = img)
+        bg.pack()
+
 
         self.home_frame = Frame(background=bg_color, width=w_width, height=h_height)
         self.home_frame.pack
