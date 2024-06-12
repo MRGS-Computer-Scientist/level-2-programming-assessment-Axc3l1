@@ -2,7 +2,7 @@ from tkinter import *
 #from app_settings import *
 from os import *
 
-#from PIL import ImageTk, Image
+from PIL import ImageTk, Image
 
 w_width = 414
 h_height = 816
@@ -26,24 +26,27 @@ class App():
 
         
 
-        self.top_frame = Frame(background='orange', width=w_width, height= 100)
+        self.top_frame = Frame(background='orange', width=w_width, height= 75)
         self.top_frame.pack(side='top')
     
-        #image = Image.open('C:\\Users\\21162\\github-classroom\\MRGS-Computer-Scientist\\level-2-programming-assessment-Axc3l1\\main.py\\imgs\\logo.png')
-        #image = ImageTk.PhotoImage(image)
+        image = Image.open("main.py\imgs\logo.png")
+        photo = ImageTk.PhotoImage(image.resize((450, 135)))
 
-        #image_label = Label(self.top_frame, image=Image)
+        #image_label = Label(self.top_frame, image=photo)
         #image_label.pack()
+
+        #bg_image = Label(self.home_frame, image=photo)
+        #bg_image.pack()
 
         #self.image_label = Tk.Label(self, image=self.image)
         #self.image_label.pack()
 
-        canvas = Canvas(height = 100, width = 100)
-        canvas.pack()
+        #canvas = Canvas(height = 100, width = 100)
+        #canvas.pack()
 
-        img = PhotoImage(file = r'[C:\\Users\\21162\\github-classroom\\MRGS-Computer-Scientist\\level-2-programming-assessment-Axc3l1\\main.py\\imgs\\logo.png]')
-        bg = Label(canvas, image = img)
-        bg.pack()
+        #img = PhotoImage(file = r'[main.py\\imgs\\logo.png]')
+        #bg = Label(canvas, image = img)
+        #bg.pack()
 
 
         self.home_frame = Frame(background=bg_color, width=w_width, height=h_height)
@@ -52,17 +55,30 @@ class App():
         self.title_label = Label(self.home_frame, text="Home")
         self.title_label.pack()
 
+        bg_image = Label(self.top_frame, image=photo)
+        bg_image.pack()
+
         self.bottom_frame = Frame(background=bg_color, width=w_width, height=100)
         self.bottom_frame.pack(side='bottom')
 
-        self.home_button = Button(self.top_frame, text="Menu", height=5, width=5, bg='white', command= lambda: self.go_to_frame("Home"))
-        self.home_button.place(x=15,y=7)
+        self.home_button = Button(self.top_frame, text="Menu", height=3, width=5, bg='orange', command= lambda: self.go_to_frame("Home"), borderwidth= 0)
+        self.home_button.place(x=0,y=50)
 
-        self.exit_button = Button(self.bottom_frame, text="Exit", height=5, width=5, bg='white', command=self.exit)
+        self.exit_button = Button(self.bottom_frame, text="Exit", height=3, width=3, bg='white', command=self.exit)
         self.exit_button.place(x=15,y=7)
 
-        self.settings_button = Button(self.top_frame, text="Settings", height=5, width=5, bg='white', command= lambda: self.go_to_frame("Settings"))
-        self.settings_button.place(x=350,y=7)
+        #click_btn= PhotoImage(file='main.py\imgs\cog image.png')
+        #img_label= Label(image=click_btn)
+        #button= Button(image=click_btn, command= funtimes, borderwidth=0)
+        #button.pack(pady=30)
+        #text= Label(text= "no123")
+        #text.pack(pady=30)
+
+        self.settings_button = Button(self.top_frame, text="Settings", height=3, width=5, bg='white', command= lambda: self.go_to_frame("Settings"))
+        self.settings_button.place(x=370,y=50)
+
+        
+
 
         ###settings frame####
         self.settings_frame = Frame(background='white', width=w_width, height=h_height)
@@ -98,6 +114,9 @@ class App():
             #edit_menu.add_command(Label="Cut", command=our_command)
             #edit_menu.add_command(Label="Copy", command=our_command)
         
+      
+
+
         self.window.mainloop()
 
 
@@ -109,12 +128,12 @@ class App():
         elif self.current_frame == "Settings":
             self.settings_frame.pack_forget()
        
-        if next_frame == "Home":
+        if next_frame == "Settings":
                 self.settings_frame.pack()
-                self.current_frame = "Home"
-        elif next_frame == "Settings":
-                self.home_frame.pack()
                 self.current_frame = "Settings"
+        elif next_frame == "Home":
+                self.home_frame.pack()
+                self.current_frame = "Home"
 
     #def settings(self):
         #self.settings_frame
@@ -132,7 +151,4 @@ class App():
 
 
 
-    
-        
-      
     
