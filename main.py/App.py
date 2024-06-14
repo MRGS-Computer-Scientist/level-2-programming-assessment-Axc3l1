@@ -9,11 +9,13 @@ h_height = 816
 
 bg_color = "#FF851B"
 
+button_font=("airel", 20, "bold")
 
 
 class App():
 
     current_frame = "Home"
+    
     
 
     def __init__(self):
@@ -34,6 +36,9 @@ class App():
 
         settings_icon = Image.open("main.py\imgs\cog_image.png")
         settings_image = ImageTk.PhotoImage(settings_icon.resize((50,50)))
+
+        home_icon = Image.open("main.py\imgs\home.png")
+        home_image= ImageTk.PhotoImage(home_icon.resize((50,50)))
 
         #image_label = Label(self.top_frame, image=photo)
         #image_label.pack()
@@ -64,14 +69,17 @@ class App():
         self.bottom_frame = Frame(background=bg_color, width=w_width, height=100)
         self.bottom_frame.pack(side='bottom')
 
-        self.home_button = Button(self.top_frame, text="Menu", height=3, width=5, bg='orange', command= lambda: self.go_to_frame("Home"), borderwidth= 0)
-        self.home_button.place(x=0,y=50)
+        #self.home_button = Button(self.top_frame, text="Menu", height=3, width=5, bg='orange', command= lambda: self.go_to_frame("Home"), borderwidth= 0)
+        #self.home_button.place(x=0,y=50)
 
-        self.exit_button = Button(self.bottom_frame, text="Exit", height=3, width=3, bg='white', command=self.exit)
-        self.exit_button.place(x=15,y=7)
+        self.home_button = Button(self.top_frame, image=home_image, borderwidth= 0, highlightthickness=0, command= lambda: self.go_to_frame("Home"))
+        self.home_button.place(x=-5,y=50)
 
-        self.settings_button = Button(self.bottom_frame, image=settings_image, borderwidth= 0, command= lambda: self.go_to_frame("Settings"))
-        self.settings_button.place(x=300,y=20)
+        #self.exit_button = Button(self.bottom_frame, text="Exit", height=3, width=3, bg="#FF851B", borderwidth=0, font=button_font, command=self.exit)
+        #self.exit_button.place(x=175,y=0)
+
+        self.settings_button = Button(self.top_frame, image=settings_image, borderwidth= 0, highlightthickness=0, command= lambda: self.go_to_frame("Settings"))
+        self.settings_button.place(x=365,y=50)
 
         #self.settings_button = Button(self.top_frame, text="Settings", height=3, width=5, bg='orange', borderwidth= 0, command= lambda: self.go_to_frame("Settings"))
         #self.settings_button.place(x=370,y=50)
