@@ -1,8 +1,8 @@
 from tkinter import *
 #from app_settings import *
 from os import *
-
 from PIL import ImageTk, Image
+import sqlite3
 
 w_width = 414
 h_height = 816
@@ -10,7 +10,7 @@ h_height = 816
 bg_color = "#FF851B"
 
 button_font=("airel", 20, "bold")
-
+fun_font=("airel", 10, "bold")
 
 class App():
 
@@ -39,26 +39,13 @@ class App():
 
         home_icon = Image.open("main.py\imgs\home.png")
         home_image= ImageTk.PhotoImage(home_icon.resize((50,50)))
+      
 
-        #image_label = Label(self.top_frame, image=photo)
-        #image_label.pack()
-
-        #bg_image = Label(self.home_frame, image=photo)
-        #bg_image.pack()
-
-        #self.image_label = Tk.Label(self, image=self.image)
-        #self.image_label.pack()
-
-        #canvas = Canvas(height = 100, width = 100)
-        #canvas.pack()
-
-        #img = PhotoImage(file = r'[main.py\\imgs\\logo.png]')
-        #bg = Label(canvas, image = img)
-        #bg.pack()
-
+        #self.save_button = Button(self.top_frame, text="save note", command=self.save_note)
+        #self.save_button.pack()
 
         self.home_frame = Frame(background=bg_color, width=w_width, height=h_height)
-        self.home_frame.pack
+        self.home_frame.pack()
 
         self.title_label = Label(self.home_frame, text="Home")
         self.title_label.pack()
@@ -72,11 +59,17 @@ class App():
         #self.home_button = Button(self.top_frame, text="Menu", height=3, width=5, bg='orange', command= lambda: self.go_to_frame("Home"), borderwidth= 0)
         #self.home_button.place(x=0,y=50)
 
+        #self.view_button = Button(self.bottom_frame, text="view notes", command=self.view_notes)
+        #self.view_button.pack()
+
+        self.newrecipie_button = Button(self.bottom_frame, text="New Recipie", height=3, width=10, bg="#FF851B", font=button_font, borderwidth=0, command=self.new_rec)
+        self.newrecipie_button.place(x=230,y=0)
+
         self.home_button = Button(self.top_frame, image=home_image, borderwidth= 0, highlightthickness=0, command= lambda: self.go_to_frame("Home"))
         self.home_button.place(x=-5,y=50)
 
-        #self.exit_button = Button(self.bottom_frame, text="Exit", height=3, width=3, bg="#FF851B", borderwidth=0, font=button_font, command=self.exit)
-        #self.exit_button.place(x=175,y=0)
+        self.exit_button = Button(self.bottom_frame, text="Exit", height=3, width=3, bg="#FF851B", borderwidth=0, font=button_font, command=self.exit)
+        self.exit_button.place(x=10,y=0)
 
         self.settings_button = Button(self.top_frame, image=settings_image, borderwidth= 0, highlightthickness=0, command= lambda: self.go_to_frame("Settings"))
         self.settings_button.place(x=365,y=50)
@@ -94,10 +87,15 @@ class App():
         self.title_label = Label(self.settings_frame, text="Settings")
         self.title_label.pack()
 
+        self.test_button = Button(self.settings_frame, text="test", height=3, width=3, bg="#FF851B")
+        self.settings_frame.pack()
         
 
         #self.exit_button = Button(self.settings_frame, text="Exit", height=5, width=5, bg='white', command=self.exit)
         #self.exit_button.place(x=15,y=7)
+
+        ###New recipie###
+
 
         self.dirname = path.dirname(__file__)
         self.filename = path.join(self.dirname, 'images/')
@@ -120,9 +118,8 @@ class App():
             #my_menu.add_cascade(Label="Edit", menu=edit_menu)
             #edit_menu.add_command(Label="Cut", command=our_command)
             #edit_menu.add_command(Label="Copy", command=our_command)
+         
         
-      
-
 
         self.window.mainloop()
 
@@ -154,8 +151,33 @@ class App():
         #print("yes")
 
 
+    #def new_rec(self):
+        #print("123 fun fun fun")
+
+    def new_rec(self):
+         note_entry = Text()
+         note_entry.pack()
+
     
-
-
-
-    
+    #def save_note(self):
+        #note = self.note_entry.get("1.0", END)
+        #conn = sqlite3.connect("notes.db")
+        #cursor = conn.cursor()
+        #cursor.execute("CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT)")
+        #cursor.execute("INSERT INTO notes (content) VALUES (?)", (note,))
+        #conn.commit()
+        #conn.close()
+            
+    #def view_notes():
+        #conn = sqlite3.connect("notes.db")
+        #cursor = conn.cursor()
+        #cursor.execute("SELECT * FROM notes")
+        #notes = cursor.fetchall()
+        #conn.close()
+                
+        #view_window = Toplevel()
+        #view_window.title("View Notes")
+        #view_text = Text(view_window)
+        #for note in notes:
+            #view_text.insert(END, note[1] + "\n")
+        #view_text.pack()
