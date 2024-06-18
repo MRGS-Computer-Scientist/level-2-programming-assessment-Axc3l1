@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 #from app_settings import *
 from os import *
 from PIL import ImageTk, Image
@@ -16,7 +17,8 @@ class App():
 
     current_frame = "Home"
     
-    
+    #note_entry = Text()
+    #note_entry.pack()
 
     def __init__(self):
 
@@ -45,7 +47,7 @@ class App():
         #self.save_button.pack()
 
         self.home_frame = Frame(background=bg_color, width=w_width, height=h_height)
-        self.home_frame.pack()
+        #self.home_frame.pack()
 
         self.title_label = Label(self.home_frame, text="Home")
         self.title_label.pack()
@@ -82,14 +84,12 @@ class App():
 
         ###settings frame####
         self.settings_frame = Frame(background='white', width=w_width, height=h_height)
-        self.settings_frame.pack()
+
 
         self.title_label = Label(self.settings_frame, text="Settings")
         self.title_label.pack()
 
-        self.test_button = Button(self.settings_frame, text="test", height=3, width=3, bg="#FF851B")
-        self.settings_frame.pack()
-        
+        self.test_button = Button(self.settings_frame, text="test", height=3, width=3, bg="#FF851B")   
 
         #self.exit_button = Button(self.settings_frame, text="Exit", height=5, width=5, bg='white', command=self.exit)
         #self.exit_button.place(x=15,y=7)
@@ -127,10 +127,15 @@ class App():
 
     def go_to_frame(self, next_frame):
 
-        if self.current_frame == "Home":
+        print("CURRENT FRAME", self.current_frame)
+        print("NEXT FRAME", next_frame)
+
+        """ if self.current_frame == "Home":
             self.home_frame.pack_forget()
         elif self.current_frame == "Settings":
-            self.settings_frame.pack_forget()
+            self.settings_frame.pack_forget() """
+        
+        self.hide_all_frames()
        
         if next_frame == "Settings":
                 self.settings_frame.pack()
@@ -139,6 +144,11 @@ class App():
                 self.home_frame.pack()
                 self.current_frame = "Home"
 
+
+    def hide_all_frames(self):
+         self.home_frame.pack_forget()
+         self.settings_frame.pack_forget()
+         
     #def settings(self):
         #self.settings_frame
 
@@ -154,30 +164,35 @@ class App():
     #def new_rec(self):
         #print("123 fun fun fun")
 
+    def save_note(self):
+        note = self.note_entry.get("1.0", END)
+        conn = sqlite3.connect("notes.db")
+        cursor = conn.cursor()
+        cursor.execute("CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT)")
+        cursor.execute("INSERT INTO notes (content) VALUES (?)", (note,))
+
+        messagebox.showinfo(title="Recipe saved!", message="Saved successfully!")
+        conn.commit()
+        conn.close()
+
     def new_rec(self):
-         note_entry = Text()
-         note_entry.pack()
+         view_window = Toplevel(self.window)
+         view_window.geometry("400x400")
+         view_window.title("Test")
+
+         
+         self.note_entry = Text(view_window, height=20)
+         self.note_entry.pack()
+
+         
+         self.save_button = Button(view_window, text="save note", command=self.save_note)
+         self.save_button.pack()
+
+         #recipe_name = Label(view_window, text="Recipe")
+         #recipe_name.pack()
+
+         view_window.mainloop()
 
     
-    #def save_note(self):
-        #note = self.note_entry.get("1.0", END)
-        #conn = sqlite3.connect("notes.db")
-        #cursor = conn.cursor()
-        #cursor.execute("CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT)")
-        #cursor.execute("INSERT INTO notes (content) VALUES (?)", (note,))
-        #conn.commit()
-        #conn.close()
-            
-    #def view_notes():
-        #conn = sqlite3.connect("notes.db")
-        #cursor = conn.cursor()
-        #cursor.execute("SELECT * FROM notes")
-        #notes = cursor.fetchall()
-        #conn.close()
-                
-        #view_window = Toplevel()
-        #view_window.title("View Notes")
-        #view_text = Text(view_window)
-        #for note in notes:
-            #view_text.insert(END, note[1] + "\n")
-        #view_text.pack()
+ 
+        
