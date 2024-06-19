@@ -33,7 +33,7 @@ class App():
         self.top_frame = Frame(background='orange', width=w_width, height= 75)
         self.top_frame.pack(side='top')
     
-        image = Image.open("main.py\imgs\logo.png")
+        image = Image.open('main.py\imgs\logo.png')
         photo = ImageTk.PhotoImage(image.resize((450, 135)))
 
         settings_icon = Image.open("main.py\imgs\cog_image.png")
@@ -89,7 +89,8 @@ class App():
         self.title_label = Label(self.settings_frame, text="Settings")
         self.title_label.pack()
 
-        self.test_button = Button(self.settings_frame, text="test", height=3, width=3, bg="#FF851B")   
+        self.test_button = Button(self.settings_frame, text="123test", height=3, width=3, bg="#FF851B")
+        self.test_button.pack()  
 
         #self.exit_button = Button(self.settings_frame, text="Exit", height=5, width=5, bg='white', command=self.exit)
         #self.exit_button.place(x=15,y=7)
@@ -178,7 +179,7 @@ class App():
     def new_rec(self):
          view_window = Toplevel(self.window)
          view_window.geometry("400x400")
-         view_window.title("Test")
+         view_window.title("Recipe Notes")
 
          
          self.note_entry = Text(view_window, height=20)
@@ -193,6 +194,4 @@ class App():
 
          view_window.mainloop()
 
-    
  
-        
