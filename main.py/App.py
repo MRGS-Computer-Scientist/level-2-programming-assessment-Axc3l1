@@ -11,7 +11,7 @@ h_height = 816
 bg_color = "#FF851B"
 
 button_font=("airel", 20, "bold")
-fun_font=("airel", 10, "bold")
+fun_font=("airel", 15, "bold")
 
 class App():
 
@@ -49,6 +49,10 @@ class App():
         self.home_frame = Frame(background=bg_color, width=w_width, height=h_height)
         #self.home_frame.pack()
 
+
+
+
+
         self.title_label = Label(self.home_frame, text="Home")
         self.title_label.pack()
 
@@ -61,8 +65,8 @@ class App():
         #self.home_button = Button(self.top_frame, text="Menu", height=3, width=5, bg='orange', command= lambda: self.go_to_frame("Home"), borderwidth= 0)
         #self.home_button.place(x=0,y=50)
 
-        #self.view_button = Button(self.bottom_frame, text="view notes", command=self.view_notes)
-        #self.view_button.pack()
+        self.view_button = Button(self.bottom_frame, text="view Recipies", height=3, width=15, bg="#FF851B", borderwidth=0, font=fun_font, command=self.view_notes)
+        self.view_button.place(x=65,y=15)
 
         self.newrecipie_button = Button(self.bottom_frame, text="New Recipie", height=3, width=10, bg="#FF851B", font=button_font, borderwidth=0, command=self.new_rec)
         self.newrecipie_button.place(x=230,y=0)
@@ -89,7 +93,7 @@ class App():
         self.title_label = Label(self.settings_frame, text="Settings")
         self.title_label.pack()
 
-        self.test_button = Button(self.settings_frame, text="123test", height=3, width=3, bg="#FF851B")
+        self.test_button = Button(self.settings_frame, text="123test", height=3, width=3, bg="#FF851B", borderwidth=0, command= self.change_lan)
         self.test_button.pack()  
 
         #self.exit_button = Button(self.settings_frame, text="Exit", height=5, width=5, bg='white', command=self.exit)
@@ -157,7 +161,7 @@ class App():
     def exit(self):
         self.window.destroy()
 
-    
+   
     #def home_open(self):
         #print("yes")
 
@@ -194,4 +198,18 @@ class App():
 
          view_window.mainloop()
 
- 
+
+    
+    def view_notes(self):
+        conn = sqlite3.connect("notes.db")
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM notes")
+        notes = cursor.fetchall()
+        conn.close()
+                
+        view_window = Toplevel()
+        view_window.title("View Notes")
+        view_text = Text(view_window)
+        for note in notes:
+            view_text.insert(END, note[1] + "\n")
+        view_text.pack()
