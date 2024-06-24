@@ -4,6 +4,7 @@ from tkinter import messagebox
 from os import *
 from PIL import ImageTk, Image
 import sqlite3
+import data as d
 
 w_width = 414
 h_height = 816
@@ -65,7 +66,7 @@ class App():
         #self.home_button = Button(self.top_frame, text="Menu", height=3, width=5, bg='orange', command= lambda: self.go_to_frame("Home"), borderwidth= 0)
         #self.home_button.place(x=0,y=50)
 
-        self.view_button = Button(self.bottom_frame, text="view Recipies", height=3, width=15, bg="#FF851B", borderwidth=0, font=fun_font, command=self.view_notes)
+        self.view_button = Button(self.bottom_frame, text="View Recipies", height=3, width=15, bg="#FF851B", borderwidth=0, font=fun_font, command=self.view_notes)
         self.view_button.place(x=65,y=15)
 
         self.newrecipie_button = Button(self.bottom_frame, text="New Recipie", height=3, width=10, bg="#FF851B", font=button_font, borderwidth=0, command=self.new_rec)
@@ -93,7 +94,7 @@ class App():
         self.title_label = Label(self.settings_frame, text="Settings")
         self.title_label.pack()
 
-        self.test_button = Button(self.settings_frame, text="123test", height=3, width=3, bg="#FF851B", borderwidth=0, command= self.change_lan)
+        self.test_button = Button(self.settings_frame, text="123test", height=3, width=3, bg="#FF851B", borderwidth=0, command= self.change_bg)
         self.test_button.pack()  
 
         #self.exit_button = Button(self.settings_frame, text="Exit", height=5, width=5, bg='white', command=self.exit)
@@ -132,8 +133,8 @@ class App():
 
     def go_to_frame(self, next_frame):
 
-        print("CURRENT FRAME", self.current_frame)
-        print("NEXT FRAME", next_frame)
+        #print("CURRENT FRAME", self.current_frame)
+        #print("NEXT FRAME", next_frame)
 
         """ if self.current_frame == "Home":
             self.home_frame.pack_forget()
@@ -190,8 +191,11 @@ class App():
          self.note_entry.pack()
 
          
-         self.save_button = Button(view_window, text="save note", command=self.save_note)
+         self.save_button = Button(view_window, text="Save Note", command=self.save_note)
          self.save_button.pack()
+
+         self.translate_button = Button(view_window, text="Translate")                           
+         self.translate_button.pack()
 
          #recipe_name = Label(view_window, text="Recipe")
          #recipe_name.pack()
@@ -213,3 +217,7 @@ class App():
         for note in notes:
             view_text.insert(END, note[1] + "\n")
         view_text.pack()
+
+
+    def change_bg(self):
+        self.window.configure(bg='red')
