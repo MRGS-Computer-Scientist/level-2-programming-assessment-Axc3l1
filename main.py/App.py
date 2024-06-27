@@ -216,18 +216,7 @@ class App():
          self.toLang.current(0)
          self.toLang.place(x=100, y=375)
 
-         """          self.fromText_Box = Text(self.window, bg=cs.color3, 
-         font=(cs.font1, 15), height=9, width=34)
-         self.fromText_Box.place(x=80, y=190)
-
-         self.toText_Box = Text(self.window, bg=cs.color3, 
-         relief=GROOVE, font=(cs.font1, 15), height=9, width=34)
-         self.toText_Box.place(x=480, y=190) """
-
-         #translateBtn = Button(self.window, text="Translate", 
-         #font=(cs.font2, 14, "bold"), bg=cs.color4, fg=cs.color1, 
-         #command=self.Translator)
-         #translateBtn.place(x=385, y=430)
+         
 
 
 
