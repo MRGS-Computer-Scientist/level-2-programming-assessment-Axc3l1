@@ -1,10 +1,13 @@
 from tkinter import *
-from tkinter import messagebox
+from tkinter import ttk, messagebox
 #from app_settings import *
 from os import *
 from PIL import ImageTk, Image
 import sqlite3
+
+from googletrans import Translator
 import data as d
+import custom as cs
 
 w_width = 414
 h_height = 816
@@ -34,13 +37,13 @@ class App():
         self.top_frame = Frame(background='orange', width=w_width, height= 75)
         self.top_frame.pack(side='top')
     
-        image = Image.open('main.py\imgs\logo.png')
+        image = Image.open('imgs\logo.png')
         photo = ImageTk.PhotoImage(image.resize((450, 135)))
 
-        settings_icon = Image.open("main.py\imgs\cog_image.png")
+        settings_icon = Image.open("imgs\cog_image.png")
         settings_image = ImageTk.PhotoImage(settings_icon.resize((50,50)))
 
-        home_icon = Image.open("main.py\imgs\home.png")
+        home_icon = Image.open("imgs\home.png")
         home_image= ImageTk.PhotoImage(home_icon.resize((50,50)))
       
 
@@ -185,8 +188,17 @@ class App():
          view_window = Toplevel(self.window)
          view_window.geometry("400x400")
          view_window.title("Recipe Notes")
+         
 
          
+         self.currLang = StringVar()
+         self.currLang.set("Not Detected")
+         # Label: For showing the name of detected language
+         self.detectedLang = Label(view_window, 
+         textvariable=self.currLang, font=(cs.font3, 20), 
+         bg='white')
+         self.detectedLang.place(x=5, y=325)
+
          self.note_entry = Text(view_window, height=20)
          self.note_entry.pack()
 
@@ -194,13 +206,70 @@ class App():
          self.save_button = Button(view_window, text="Save Note", command=self.save_note)
          self.save_button.pack()
 
-         self.translate_button = Button(view_window, text="Translate")                           
+         self.translate_button = Button(view_window, text="Translate", command = self.Translator)                           
          self.translate_button.pack()
+
+         text = StringVar()
+         self.toLang = ttk.Combobox(view_window, textvariable=text, 
+         font=(cs.font1, 15))
+         self.toLang['values'] = d.lang_list
+         self.toLang.current(0)
+         self.toLang.place(x=100, y=375)
+
+         """          self.fromText_Box = Text(self.window, bg=cs.color3, 
+         font=(cs.font1, 15), height=9, width=34)
+         self.fromText_Box.place(x=80, y=190)
+
+         self.toText_Box = Text(self.window, bg=cs.color3, 
+         relief=GROOVE, font=(cs.font1, 15), height=9, width=34)
+         self.toText_Box.place(x=480, y=190) """
+
+         #translateBtn = Button(self.window, text="Translate", 
+         #font=(cs.font2, 14, "bold"), bg=cs.color4, fg=cs.color1, 
+         #command=self.Translator)
+         #translateBtn.place(x=385, y=430)
+
+
+
+
 
          #recipe_name = Label(view_window, text="Recipe")
          #recipe_name.pack()
 
          view_window.mainloop()
+
+    def Translator(self):
+        view_window = Toplevel(self.window)
+        view_window.geometry("400x400")
+        view_window.title("Notes translation")
+
+        self.note_translation = Text(view_window, height =20)
+        self.note_translation.pack()
+
+        try:
+            fromText = self.note_entry.get("1.0", "end-1c")
+
+            # Instance of Translator class
+            translator = Translator()
+
+            dest_lang = self.toLang.get()
+
+            if dest_lang == '':
+                messagebox.showwarning("Nothing has chosen!", "Please Select a Language")
+            else:
+                if fromText != '':
+                    langType = translator.detect(fromText)
+
+                    # Translating the text
+                    result = translator.translate(fromText, dest=dest_lang)
+
+                    self.currLang.set(d._languages[langType.lang.lower()])
+                    
+                    self.note_translation.delete("1.0", END)
+
+                    self.note_translation.insert(INSERT, result.text)
+        except Exception as es:
+            messagebox.showerror("Error!", f"Error due to {es}")
 
 
     
