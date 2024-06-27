@@ -97,8 +97,9 @@ class App():
         self.title_label = Label(self.settings_frame, text="Settings")
         self.title_label.pack()
 
-        self.test_button = Button(self.settings_frame, text="123test", height=3, width=3, bg="#FF851B", borderwidth=0, command= self.change_bg)
-        self.test_button.pack()  
+        #self.test_button = Button(self.settings_frame, text="123test", height=3, width=5, bg="#FF851B", borderwidth=0, command= self.change_bg)
+        #self.test_button.pack()  
+
 
         #self.exit_button = Button(self.settings_frame, text="Exit", height=5, width=5, bg='white', command=self.exit)
         #self.exit_button.place(x=15,y=7)
@@ -277,5 +278,6 @@ class App():
         view_text.pack()
 
 
-    def change_bg(self):
-        self.window.configure(bg='red')
+    #def change_bg(self):
+        #self.window.configure(bg='grey')
+
