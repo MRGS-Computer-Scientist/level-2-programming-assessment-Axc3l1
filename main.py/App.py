@@ -21,8 +21,7 @@ class App():
 
     current_frame = "Home"
     
-    #note_entry = Text()
-    #note_entry.pack()
+
 
     def __init__(self):
 
@@ -30,7 +29,6 @@ class App():
         self.window.geometry(str(w_width) + "x" + str(h_height))
         self.window.title("Dish Lister")
 
-        #self.window.iconbitmap('c:/gui/codemy.ico')
 
         
 
@@ -47,11 +45,9 @@ class App():
         home_image= ImageTk.PhotoImage(home_icon.resize((50,50)))
       
 
-        #self.save_button = Button(self.top_frame, text="save note", command=self.save_note)
-        #self.save_button.pack()
 
         self.home_frame = Frame(background=bg_color, width=w_width, height=h_height)
-        #self.home_frame.pack()
+
 
 
 
@@ -66,8 +62,7 @@ class App():
         self.bottom_frame = Frame(background=bg_color, width=w_width, height=100)
         self.bottom_frame.pack(side='bottom')
 
-        #self.home_button = Button(self.top_frame, text="Menu", height=3, width=5, bg='orange', command= lambda: self.go_to_frame("Home"), borderwidth= 0)
-        #self.home_button.place(x=0,y=50)
+
 
         self.view_button = Button(self.bottom_frame, text="View Recipies", height=3, width=15, bg="#FF851B", borderwidth=0, font=fun_font, command=self.view_notes)
         self.view_button.place(x=65,y=15)
@@ -84,8 +79,7 @@ class App():
         self.settings_button = Button(self.top_frame, image=settings_image, borderwidth= 0, highlightthickness=0, command= lambda: self.go_to_frame("Settings"))
         self.settings_button.place(x=365,y=50)
 
-        #self.settings_button = Button(self.top_frame, text="Settings", height=3, width=5, bg='orange', borderwidth= 0, command= lambda: self.go_to_frame("Settings"))
-        #self.settings_button.place(x=370,y=50)
+
 
         
 
@@ -97,14 +91,6 @@ class App():
         self.title_label = Label(self.settings_frame, text="Settings")
         self.title_label.pack()
 
-        #self.test_button = Button(self.settings_frame, text="123test", height=3, width=5, bg="#FF851B", borderwidth=0, command= self.change_bg)
-        #self.test_button.pack()  
-
-
-        #self.exit_button = Button(self.settings_frame, text="Exit", height=5, width=5, bg='white', command=self.exit)
-        #self.exit_button.place(x=15,y=7)
-
-        ###New recipie###
 
 
         self.dirname = path.dirname(__file__)
@@ -112,33 +98,17 @@ class App():
 
         print("the path is", self.filename)
 
-        #my_menu = Menu()
-        #self.config(menu=my_menu)
 
-        #def our_command():
-            #self.my_label = Label(text="womp womp").pack()
-
-            #file_menu = Menu(my_menu)
-            #my_menu.add_cascade(Label="File", menu=file_menu)
-            #file_menu.add_command(Label="New...", command=our_command)
-            #file_menu.add_separator()
-            #file_menu.add_command(Label="Exit", command=quit)
-
-            #edit_menu = Menu(my_menu)
-            #my_menu.add_cascade(Label="Edit", menu=edit_menu)
-            #edit_menu.add_command(Label="Cut", command=our_command)
-            #edit_menu.add_command(Label="Copy", command=our_command)
          
         
 
         self.window.mainloop()
 
 
-
+    #this function checks if the next frame is settings and if it is it changes to the settings frame or if the next frame is home it changes to the home frame
     def go_to_frame(self, next_frame):
 
-        #print("CURRENT FRAME", self.current_frame)
-        #print("NEXT FRAME", next_frame)
+
 
         """ if self.current_frame == "Home":
             self.home_frame.pack_forget()
@@ -159,20 +129,14 @@ class App():
          self.home_frame.pack_forget()
          self.settings_frame.pack_forget()
          
-    #def settings(self):
-        #self.settings_frame
+ 
 
 
     def exit(self):
         self.window.destroy()
 
    
-    #def home_open(self):
-        #print("yes")
 
-
-    #def new_rec(self):
-        #print("123 fun fun fun")
 
     def save_note(self):
         note = self.note_entry.get("1.0", END)
@@ -184,6 +148,8 @@ class App():
         messagebox.showinfo(title="Recipe saved!", message="Saved successfully!")
         conn.commit()
         conn.close()
+
+
 
     def new_rec(self):
          view_window = Toplevel(self.window)
@@ -223,15 +189,16 @@ class App():
 
 
 
-         #recipe_name = Label(view_window, text="Recipe")
-         #recipe_name.pack()
+
 
          view_window.mainloop()
 
+
+    #opens a window where the user inputs their notes and opens another window with their translated notes
     def Translator(self):
         view_window = Toplevel(self.window)
         view_window.geometry("400x400")
-        view_window.title("Notes translation")
+        view_window.title("Notes Translation")
 
         self.note_translation = Text(view_window, height =20)
         self.note_translation.pack()
@@ -258,11 +225,11 @@ class App():
                     self.note_translation.delete("1.0", END)
 
                     self.note_translation.insert(INSERT, result.text)
-        except Exception as es:
-            messagebox.showerror("Error!", f"Error due to {es}")
+        except Exception:
+            messagebox.showerror("Error!")
 
 
-    
+    #opens up a new window where the notes you have saved are
     def view_notes(self):
         conn = sqlite3.connect("notes.db")
         cursor = conn.cursor()
@@ -278,6 +245,5 @@ class App():
         view_text.pack()
 
 
-    #def change_bg(self):
-        #self.window.configure(bg='grey')
+
 
